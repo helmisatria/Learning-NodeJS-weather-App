@@ -1,7 +1,20 @@
-console.log('Starting app.js');
+/*jshint esversion: 6 */
 
-setTimeout(() => {
-    console.log('Inside the callback');
-}, 2000);
+const request = require ('request');
+const yargs = require ('yargs');
+const geocode = require('./geocode/geocode')
 
-console.log('Finishing app.js');
+const argv = yargs
+    .options({
+       a: {
+            demand: true,
+            alias: 'address',
+            describe: 'Address to fetch weather for',
+            string: true
+       } 
+    })
+    .help()
+    .alias('help', 'h')
+    .argv;
+
+geocode.geocodeAddress(argv.address);
